@@ -42,75 +42,101 @@ useEffect(() => {
 
 <>
       {/* SECTION 1: HERO SECTION */}
-      <Box 
-        sx={{ 
-          bgcolor: '#009788', 
-          py: 10, 
-          backgroundImage: `url(${HeroImage})`,
-          backgroundSize: 'contain',
-          backgroundPosition: 'right center',
-          backgroundRepeat: 'no-repeat',
-          minHeight: 400,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
-        <Container maxWidth="md">
-          <Grid container>
-            <Grid item xs={12} md={6}>
-              <Typography 
-                variant="h2" 
-                fontWeight="800" 
-                gutterBottom 
-                sx={{ color: '#fff', lineHeight: 1.2 }}
-              >
-                Elevate Your Pet Experience
-              </Typography>
-              
-              <Typography 
-                variant="h5" 
-                paragraph 
-                sx={{ color: 'rgba(255, 255, 255, 0.9)', mb: 4 }}
-              >
-                Wet Nose Warm Heart...
-              </Typography>
-              
-              <Stack direction="row" spacing={2} justifyContent="flex-start">
-                <Button 
-                  variant="contained" 
-                  size="large" 
-                  sx={{ 
-                    px: 4, 
-                    backgroundColor: colorTheme,
-                    '&:hover': { backgroundColor: colorTheme, filter: 'brightness(0.9)' } 
-                  }}
-                  
-                  onClick={()=>{navigate("/allPets")}}
-                >
-                  Adoption
-                </Button>
-                <Button 
-                  variant="outlined" 
-                  size="large" 
-                  onClick={()=>{navigate('/contactus')}}
-                  sx={{ 
-                    px: 4, 
-                    color: "#fff",            
-                    borderColor: "#fff", 
-                    '&:hover': {
-                      borderColor: colorTheme,    
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-                    }
-                  }}
-                >
-                  Donation
-                </Button>      
-              </Stack>
-            </Grid>
-            <Grid item xs={0} md={6} />
-          </Grid>
-        </Container>
-      </Box>
+<Box
+  sx={{
+    bgcolor: "#009788",
+    py: { xs: 6, md: 10 },
+    px: 2,
+    backgroundImage: { xs: "none", md: `url(${HeroImage})` },
+    backgroundSize: "contain",
+    backgroundPosition: "right center",
+    backgroundRepeat: "no-repeat",
+    minHeight: { xs: "auto", md: 400 },
+    display: "flex",
+    alignItems: "center",
+    textAlign: { xs: "center", md: "left" },
+  }}
+>
+  <Container maxWidth="md">
+    <Grid container alignItems="center">
+      
+      {/* TEXT SECTION */}
+      <Grid item xs={12} md={6}>
+        <Typography
+          variant="h2"
+          fontWeight="800"
+          gutterBottom
+          sx={{
+            color: "#fff",
+            lineHeight: 1.2,
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3.5rem" },
+          }}
+        >
+          Elevate Your Pet Experience
+        </Typography>
+
+        <Typography
+          variant="h5"
+          paragraph
+          sx={{
+            color: "rgba(255,255,255,0.9)",
+            mb: 4,
+            fontSize: { xs: "1rem", sm: "1.2rem", md: "1.5rem" },
+          }}
+        >
+          Wet Nose Warm Heart...
+        </Typography>
+
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
+          justifyContent={{ xs: "center", md: "flex-start" }}
+          alignItems="center"
+        >
+          <Button
+            variant="contained"
+            size="large"
+            fullWidth={{ xs: true, sm: false }}
+            sx={{
+              px: 4,
+              width: { xs: "100%", sm: "auto" },
+              backgroundColor: colorTheme,
+              "&:hover": {
+                backgroundColor: colorTheme,
+                filter: "brightness(0.9)",
+              },
+            }}
+            onClick={() => navigate("/allPets")}
+          >
+            Adoption
+          </Button>
+
+          <Button
+            variant="outlined"
+            size="large"
+            fullWidth={{ xs: true, sm: false }}
+            sx={{
+              px: 4,
+              width: { xs: "100%", sm: "auto" },
+              color: "#fff",
+              borderColor: "#fff",
+              "&:hover": {
+                borderColor: colorTheme,
+                backgroundColor: "rgba(255,255,255,0.1)",
+              },
+            }}
+            onClick={() => navigate("/contactus")}
+          >
+            Donation
+          </Button>
+        </Stack>
+      </Grid>
+
+      {/* IMAGE SIDE (hidden on mobile) */}
+      <Grid item xs={0} md={6} />
+    </Grid>
+  </Container>
+</Box>
 
       {/* SECTION 2: CARDS GRID */}
 <Container maxWidth="lg" sx={{ py: 8 }}>

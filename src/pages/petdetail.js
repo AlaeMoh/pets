@@ -4,7 +4,6 @@ import {
   Container, Grid, Typography, Button, Box, Paper, 
   Chip, Divider, CircularProgress, Stack 
 } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PetsIcon from '@mui/icons-material/Pets';
 import { fetchBreedsByID } from '../services/apis';
 
@@ -100,7 +99,6 @@ export default function PetDetails() {
                   fontWeight: 'bold'
                 
                 }}
-                onClick={()=>{navigate("/adoption")}}
               >
                 Adopt {pet.name}
               </Button>
