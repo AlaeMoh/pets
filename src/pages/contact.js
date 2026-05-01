@@ -53,15 +53,17 @@ export default function ContactPage() {
   const [amount, setAmount] = useState("10");
 
   return (
-    <Container sx={{ py: 8 }}>
+<Container sx={{ py: { xs: 4, md: 8 } }}>
       
-      <Grid container spacing={5}>
+      {/* CENTERED GRID */}
+      <Grid container spacing={4} justifyContent="center">
         
-        {/* CONTACT */}
-        <Grid item xs={12}>
-          <Card elevation={3} sx={{ borderRadius: 3 }}>
-            <CardContent>
-              <Typography variant="h4" gutterBottom>
+        {/* CONTACT CARD */}
+        <Grid item xs={12} md={6}>
+          <Card sx={{ borderRadius: 3, height: "100%" }}>
+            <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+              
+              <Typography variant="h5" gutterBottom>
                 Contact Us
               </Typography>
 
@@ -70,6 +72,7 @@ export default function ContactPage() {
                   {contactMsg}
                 </Alert>
               )}
+
 
               <Box component="form" onSubmit={handleContactSubmit}>
                 <TextField
@@ -114,39 +117,47 @@ export default function ContactPage() {
           </Card>
         </Grid>
 
-         <Grid item xs={12}>
-          <Card elevation={3} sx={{ borderRadius: 3 , width:500, height:300}}>
-            <CardContent>
-              <Typography variant="h4" gutterBottom>
-                  Support our Project
+<Grid item xs={12} md={6}>
+          <Card
+            sx={{
+              borderRadius: 3,
+              height: "100%",
+            }}
+          >
+            <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+              
+              <Typography variant="h5" gutterBottom>
+                Support our Project
               </Typography>
 
-
-            <Typography variant="body2" color="text.secondary" mb={3}>
+              <Typography variant="body2" color="text.secondary" mb={3}>
                 Choose an amount to donate.
               </Typography>
 
-                <TextField
-                  fullWidth
-                  label="Donation Amount"
-                  type="number"
-                  value={amount}
-                  inputProps={{ min: 1 }}
-                  onChange={(e) => setAmount(e.target.value)}
-                  sx={{ mb: 3 ,mt:2}}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        $
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+              <TextField
+                fullWidth
+                label="Donation Amount"
+                type="number"
+                value={amount}
+                inputProps={{ min: 1 }}
+                onChange={(e) => setAmount(e.target.value)}
+                sx={{ mb: 3 }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
+              />
 
-               <PaymentForm amount={amount} />
+              {/* PAYMENT FORM WRAPPER */}
+              <Box sx={{ width: "100%" }}>
+                <PaymentForm amount={amount} />
+              </Box>
+
             </CardContent>
           </Card>
         </Grid>
+
       </Grid>
     </Container>
   );
