@@ -91,9 +91,9 @@ export default function AboutUs() {
           {t("whyChoose")}
         </Typography>
 
-<Typography variant="h4" fontWeight="bold" textAlign="center" gutterBottom>
+{/* <Typography variant="h4" fontWeight="bold" textAlign="center" gutterBottom>
   {t("whyChoose")}
-</Typography>
+</Typography> */}
 
 <Grid container spacing={4} sx={{ mt: 2 }}>
   {t("features").map((item, index) => (
