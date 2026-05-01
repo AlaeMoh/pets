@@ -54,41 +54,62 @@ export default function PaymentForm({ amount }) {
   onSubmit={handlePayment}
   sx={{
     width: "100%",
-    maxWidth: 500,
+    maxWidth: { xs: "100%", sm: 450, md: 500 },
     mx: "auto",
+    mt: { xs: 2, sm: 4 },
     p: { xs: 2, sm: 3 },
-    borderRadius: 2,
-    boxShadow: 3,
+    borderRadius: { xs: 0, sm: 2 }, // full width on mobile
+    boxShadow: { xs: 0, sm: 3 }, // remove shadow on mobile
     bgcolor: "background.paper",
   }}
 >
-  <Box sx={{ mb: 3 }}>
+  {/* Card Input */}
+  <Box
+    sx={{
+      mb: 3,
+      p: 2,
+      borderRadius: 2,
+      border: "1px solid #ccc",
+      minHeight: 50,
+      display: "flex",
+      alignItems: "center",
+    }}
+  >
     <CardElement
       options={{
         style: {
           base: {
-            fontSize: "16px",
+            fontSize: "16px", // 👈 important for mobile zoom
           },
         },
       }}
     />
   </Box>
 
+  {/* Button */}
   <Button
     type="submit"
     fullWidth
     variant="contained"
     disabled={loading}
     sx={{
-      py: { xs: 1.2, sm: 1.5 },
-      fontSize: { xs: "0.9rem", sm: "1rem" },
+      py: { xs: 1.5, sm: 1.6 },
+      fontSize: { xs: "1rem", sm: "1.1rem" },
+      borderRadius: 2,
     }}
   >
     {loading ? "Processing..." : `Pay $${amount}`}
   </Button>
 
+  {/* Message */}
   {message && (
-    <Alert sx={{ mt: 2 }} severity="info">
+    <Alert
+      sx={{
+        mt: 2,
+        fontSize: { xs: "0.9rem", sm: "1rem" },
+      }}
+      severity="info"
+    >
       {message}
     </Alert>
   )}
