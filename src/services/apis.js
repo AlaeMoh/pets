@@ -85,9 +85,35 @@ try{
 ///////////////
 
 
-export const fetchBreedsBYID = async (id) => {
+export const fetchBreedsByID = async (id) => {
   try {
-const response = await fetch(`https://dogapi.dog/api/v2/breeds/${id}`, {      headers: {
+const response = await fetch(`https://api.thedogapi.com/v1/breeds/${id}`, {  
+      headers: {
+        'x-api-key': APIKEY,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data.data);
+
+    return data; 
+  } catch (error) {
+    console.log("Fetch error:", error);
+    
+  }
+};
+
+/////
+
+export const searchBreeds = async (searchTerm) => {
+  try {
+const response = await fetch(`https://api.thedogapi.com/v1/breeds/search?q=${searchTerm}`, {
+  headers: {
         'x-api-key': APIKEY,
         'Content-Type': 'application/json'
       }
@@ -100,9 +126,14 @@ const response = await fetch(`https://dogapi.dog/api/v2/breeds/${id}`, {      he
     const data = await response.json();
     // console.log(data.data);
 
-    return data.data; 
+    return data; 
   } catch (error) {
     console.log("Fetch error:", error);
-    
+    return[];
   }
 };
+
+
+///////////
+
+

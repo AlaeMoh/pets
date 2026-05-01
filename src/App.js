@@ -13,6 +13,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import Breeds from './pages/breeds';
 import AdoptionProcess from './pages/adoption';
 import Aboutus from "./pages/aboutus"
+import PetDetails from './pages/petdetail';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/breeds" element={<Breeds />} />
           <Route path="/adoption" element={<AdoptionProcess />} />
           <Route path="/aboutus" element={<Aboutus />} />
+          <Route path="/petdetail/:id" element={<PetDetails />} />
           <Route   path="/contactus"  element={
                     <Elements stripe={stripePromise}>
                       <Contact />

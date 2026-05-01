@@ -48,7 +48,7 @@ export default function Pets() {
   {petData?.map((dog) => (
     <Grid item xs={12} sm={6} md={3} key={dog.id}> 
       <Link 
-        to={`/details/${dog.id}`} 
+        to={`/petdetail/${dog.id}`} 
         style={{ textDecoration: 'none', color: 'inherit' }}
       >
         <Card 

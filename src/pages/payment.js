@@ -49,20 +49,49 @@ export default function PaymentForm({ amount }) {
   };
 
   return (
-    <Box component="form" onSubmit={handlePayment}>
-      <CardElement />
+<Box
+  component="form"
+  onSubmit={handlePayment}
+  sx={{
+    width: "100%",
+    maxWidth: 500,
+    mx: "auto",
+    p: { xs: 2, sm: 3 },
+    borderRadius: 2,
+    boxShadow: 3,
+    bgcolor: "background.paper",
+  }}
+>
+  <Box sx={{ mb: 3 }}>
+    <CardElement
+      options={{
+        style: {
+          base: {
+            fontSize: "16px",
+          },
+        },
+      }}
+    />
+  </Box>
 
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        disabled={loading}
-        sx={{ mt: 4 }}
-      >
-        {loading ? "Processing..." : `Pay $${amount}`}
-      </Button>
+  <Button
+    type="submit"
+    fullWidth
+    variant="contained"
+    disabled={loading}
+    sx={{
+      py: { xs: 1.2, sm: 1.5 },
+      fontSize: { xs: "0.9rem", sm: "1rem" },
+    }}
+  >
+    {loading ? "Processing..." : `Pay $${amount}`}
+  </Button>
 
-      {message && <Alert sx={{ mt: 2 }}>{message}</Alert>}
-    </Box>
+  {message && (
+    <Alert sx={{ mt: 2 }} severity="info">
+      {message}
+    </Alert>
+  )}
+</Box>
   );
 }
