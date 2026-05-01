@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react'
-import { fetchingPets , fetchBreeds} from '../services/apis'
+import { fetchBreeds} from '../services/apis'
 
 import { 
   Typography, 

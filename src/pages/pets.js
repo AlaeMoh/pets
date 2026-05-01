@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react'
-import { fetchBreeds, fetchingPets } from '../services/apis'
+import { fetchBreeds } from '../services/apis'
 import { Card, CardMedia, CardContent, CardActions } from '@mui/material';
 import { 
   Typography, 

@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import Avatars from './avatar'
 
 const FooterContainer = styled("footer")({
