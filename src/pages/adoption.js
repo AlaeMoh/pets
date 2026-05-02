@@ -12,6 +12,7 @@ import {
   Step,
   StepLabel,
 } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 const steps = [
   {
@@ -42,6 +43,8 @@ const steps = [
 ];
 
 export default function AdoptionProcess() {
+  const navigate= useNavigate()
+
   return (
     <Box sx={{ py: 6 }}>
       
@@ -135,6 +138,7 @@ export default function AdoptionProcess() {
               backgroundColor: "#00796b",
             },
           }}
+          onClick={()=>{navigate("/allpets")}}
         >
           Browse Pets
         </Button>

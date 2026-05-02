@@ -5,7 +5,7 @@ import PetsIcon from '@mui/icons-material/Pets';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';import { useNavigate } from 'react-router-dom';
 import SnippetFolderIcon from '@mui/icons-material/SnippetFolder';
 import { useLanguage } from "../context/LanguageContext";
-
+import HomeIcon from '@mui/icons-material/Home';
 import {
   Box,
   Drawer,
@@ -35,11 +35,21 @@ export default function TemporaryDrawer({ open, onClose }) {
       <List>
 
         <ListItem disablePadding>
+          <ListItemButton onClick={() => navigate("/")}>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText>Home</ListItemText>
+          </ListItemButton>
+        </ListItem>
+
+
+        <ListItem disablePadding>
           <ListItemButton onClick={() => navigate("/allPets")}>
             <ListItemIcon>
               <PetsIcon />
             </ListItemIcon>
-            <ListItemText>{t("allBreeds")}</ListItemText>
+            <ListItemText>All Pets</ListItemText>
           </ListItemButton>
         </ListItem>
 

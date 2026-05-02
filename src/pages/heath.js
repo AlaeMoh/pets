@@ -14,7 +14,6 @@ export default function Heath() {
                     // console.log(data)
     
             setPetFacts(data);
-            console.log(data)
           } catch (error) {
             console.error("Failed to fetch pets:", error);
           }
