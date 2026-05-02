@@ -22,7 +22,9 @@ import AppDrawer from "./drawer";
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
-import { searchBreeds} from "../services/apis";
+import { searchBreeds } from "../services/apis";
+
+/* ================== STYLES ================== */
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -31,8 +33,14 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginLeft: theme.spacing(3),
-  width: "300px",
+  width: "100%",
+  maxWidth: 300,
+  marginLeft: theme.spacing(2),
+
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: "100%",
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme, lang }) => ({
@@ -59,6 +67,8 @@ const StyledInputBase = styled(InputBase)(({ theme, lang }) => ({
   },
 }));
 
+/* ================== COMPONENT ================== */
+
 export default function Navbar() {
   const { lang, t } = useLanguage();
   const navigate = useNavigate();
@@ -68,7 +78,7 @@ export default function Navbar() {
   const [pets, setPets] = useState([]);
   const [open, setOpen] = useState(false);
 
-  // debounce
+  /* ===== debounce ===== */
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(searchTerm);
@@ -77,24 +87,24 @@ export default function Navbar() {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
-  // fetch pets
-useEffect(() => {
-  if (!debouncedSearch) {
-    setPets([]);
-    return;
-  }
-
-  const fetchPets = async () => {
-    try {
-      const data = await searchBreeds(debouncedSearch);
-      setPets(data);
-    } catch (err) {
-      console.log(err);
+  /* ===== fetch pets ===== */
+  useEffect(() => {
+    if (!debouncedSearch) {
+      setPets([]);
+      return;
     }
-  };
 
-  fetchPets();
-}, [debouncedSearch]);
+    const fetchPets = async () => {
+      try {
+        const data = await searchBreeds(debouncedSearch);
+        setPets(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchPets();
+  }, [debouncedSearch]);
 
   const handleSelectPet = (petId) => {
     setSearchTerm("");
@@ -105,18 +115,36 @@ useEffect(() => {
   return (
     <Box sx={{ flexGrow: 1, position: "relative" }}>
       <AppBar position="static" sx={{ backgroundColor: "#006f68" }}>
-        <Toolbar>
+        <Toolbar sx={{ gap: 1, flexWrap: "wrap" }}>
+          
+          {/* MENU */}
           <IconButton color="inherit" onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
 
-          <img src={Logo} width={50} height={50} alt="logo" />
+          {/* LOGO */}
+          <img src={Logo} width={40} height={40} alt="logo" />
 
+          {/* TITLE */}
           <Link to="/" style={{ textDecoration: "none", color: "#000" }}>
-            <Typography variant="h6">PetHoven</Typography>
+            <Typography
+              variant="h6"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              PetHoven
+            </Typography>
           </Link>
 
-          {/* SEARCH */}
+          {/* SEARCH WRAPPER */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: "flex",
+              justifyContent: "center",
+              order: { xs: 3, sm: 0 },
+              width: { xs: "100%", sm: "auto" },
+            }}
+          >
             <Search>
               <SearchIconWrapper lang={lang}>
                 <SearchIcon />
@@ -129,6 +157,7 @@ useEffect(() => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
 
+              {/* CLEAR BUTTON */}
               {searchTerm && (
                 <IconButton
                   size="small"
@@ -149,12 +178,12 @@ useEffect(() => {
                 </IconButton>
               )}
 
-              {/* ✅ DROPDOWN HERE */}
+              {/* DROPDOWN */}
               {pets.length > 0 && (
                 <Box
                   sx={{
                     position: "absolute",
-                    top: "100%", 
+                    top: "100%",
                     left: 0,
                     width: "100%",
                     bgcolor: "white",
@@ -187,23 +216,26 @@ useEffect(() => {
                 </Box>
               )}
             </Search>
-          <Box sx={{ flexGrow: 1 }} />
+          </Box>
 
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="error">
-              <MailIcon />
-            </Badge>
-          </IconButton>
+          {/* RIGHT ICONS (HIDDEN ON MOBILE) */}
+          <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="error">
+                <MailIcon />
+              </Badge>
+            </IconButton>
 
-          <IconButton color="inherit">
-            <Badge badgeContent={17} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+            <IconButton color="inherit">
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
 
-          <IconButton color="inherit">
-            <AccountCircle />
-          </IconButton>
+            <IconButton color="inherit">
+              <AccountCircle />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
 

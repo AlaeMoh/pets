@@ -155,64 +155,101 @@ useEffect(() => {
     </Button>
   </Container>
   
-<Grid container spacing={4}>
-    {petData?.map((item) => (
-      <Grid item xs={12} sm={6} md={3} key={item.id}> 
-        <Card 
-          sx={{ 
-            height: "100%", 
-            display: 'flex', 
-            flexDirection: 'column', 
-            boxShadow: 3,
-            transition: 'transform 0.2s',
-            '&:hover': { transform: 'scale(1.02)', boxShadow: 6 }
+<Grid
+  container
+  spacing={4}
+  justifyContent="center"   // ✅ center items horizontally
+  sx={{ px: { xs: 2, sm: 3, md: 6 } }} // responsive padding
+>
+  {petData?.map((item) => (
+    <Grid
+      item
+      key={item.id}
+      xs={12}
+      sm={6}
+      md={4}
+      lg={3} // ✅ better layout for large screens
+      sx={{ display: "flex", justifyContent: "center" }} // center card inside grid
+    >
+      <Card
+        sx={{
+          width: "100%",
+          maxWidth: 300, // ✅ prevents stretching
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          boxShadow: 3,
+          transition: "transform 0.2s",
+          "&:hover": { transform: "scale(1.03)", boxShadow: 6 },
+        }}
+      >
+        <CardMedia
+          component="img"
+          height="180"
+          image={
+            item.image?.url ||
+            "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop"
+          }
+          alt={item.name}
+          sx={{ objectFit: "cover" }}
+        />
+
+        <CardContent sx={{ flexGrow: 1 }}>
+          <Typography variant="overline" color="textSecondary" fontWeight="bold">
+            {item.breed_group || "Hound"}
+          </Typography>
+
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            sx={{ textTransform: "capitalize" }}
+          >
+            {item.name}
+          </Typography>
+
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ mt: 1, fontStyle: "italic" }}
+          >
+            {item.temperament?.split(",").slice(0, 3).join(", ")}...
+          </Typography>
+
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+            Life Span: <strong>{item.life_span} years</strong>
+          </Typography>
+        </CardContent>
+
+        <CardActions
+          sx={{
+            px: 2,
+            pb: 2,
+            justifyContent: "space-between",
           }}
         >
-          <CardMedia 
-            component="img" 
-            height="180" 
-            /* FIXED: Accessing the nested image.url from your new data */
-            image={item.image?.url || "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800&auto=format&fit=crop"} 
-            alt={item.name}
-            sx={{ objectFit: 'cover' }}
-          />
-          
-          <CardContent sx={{ flexGrow: 1 }}>
-            <Typography variant="overline" color="textSecondary" fontWeight="bold">
-              {/* FIXED: Using breed_group instead of category.name */}
-              {item.breed_group || "Hound"}
-            </Typography>
-            <Typography variant="h5" fontWeight="bold" sx={{ textTransform: 'capitalize' }}>
-              {item.name}
-            </Typography>
-            
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 1, fontStyle: 'italic' }}>
-              {/* Added: Temperament snippet from your new description */}
-              {item.temperament?.split(',').slice(0, 3).join(', ')}...
-            </Typography>
+          <Button
+            size="small"
+            sx={{ color: colorTheme, fontWeight: "bold" }}
+            href={`/details/${item.id}`}
+          >
+            Details
+          </Button>
 
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              Life Span: <strong>{item.life_span} years</strong>
-            </Typography>
-          </CardContent>
-
-          <CardActions sx={{ px: 2, pb: 2, justifyContent: 'space-between' }}>
-            <Button 
-              size="small" 
-              sx={{ color: colorTheme, fontWeight: 'bold' }}
-              href={`/details/${item.id}`}
-            >
-              Details
-            </Button>
-            {/* FIXED: Showing Origin instead of a tag name */}
-            <Typography variant="caption" sx={{ bgcolor: '#f0f0f0', px: 1, borderRadius: 1 }}>
-              {item.origin || 'Global'}
-            </Typography>
-          </CardActions>
-        </Card>
-      </Grid>
-    ))}
-  </Grid>
+          <Typography
+            variant="caption"
+            sx={{
+              bgcolor: "#f0f0f0",
+              px: 1,
+              borderRadius: 1,
+            }}
+          >
+            {item.origin || "Global"}
+          </Typography>
+        </CardActions>
+      </Card>
+    </Grid>
+  ))}
+</Grid>
 </Container>
     </>
 
