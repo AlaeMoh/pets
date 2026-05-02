@@ -21,7 +21,7 @@ export default function Home() {
     const fetchedPet = async () => {
       try {
         const data = await fetchBreeds();
-        const itemsToDisplay = data.slice(86, 90);
+        const itemsToDisplay = data.slice(86, 89);
         setPetData(itemsToDisplay);
       } catch (error) {
         console.error("Failed to fetch pets:", error);
