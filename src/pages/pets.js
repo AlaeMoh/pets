@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchBreeds } from '../services/apis';
+import { fetchBreedsAndImage } from '../services/apis';
 import { 
   Card, 
   CardMedia, 
@@ -22,10 +22,11 @@ export default function Pets() {
   useEffect(() => {
     const getPets = async () => {
       try {
-        const data = await fetchBreeds();
+        const data = await fetchBreedsAndImage();
         setPetData(data);
       } catch (error) {
         console.error("Failed to fetch pets:", error);
+        setPetData([]);
       } finally {
         setLoading(false);
       }
@@ -73,17 +74,16 @@ export default function Pets() {
           ))}
         </Grid>
       ) : (
-        /* ✅ RESPONSIVE GRID: 1 mobile → 2 tablet → 3 laptop → 4 desktop */
         <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} justifyContent="center">
           {petData?.map((dog) => (
             <Grid 
               item 
-              xs={12}  // 📱 Mobile: 1 card per row (12/12)
-              sm={6}   // 📱 Tablet: 2 cards per row (6/12)
-              md={4}   // 💻 Laptop: 3 cards per row (4/12)
-              lg={3}   // 🖥️ Desktop: 4 cards per row (3/12)
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
               key={dog.id}
-              sx={{ display: "flex", justifyContent: "center" }} // ✅ Centers card when it doesn't fill full width
+              sx={{ display: "flex", justifyContent: "center" }}
             >
               <Link to={`/petdetail/${dog.id}`} style={{ textDecoration: "none", color: "inherit", width: "100%" }}>
                 <Card 
@@ -103,15 +103,22 @@ export default function Pets() {
                     "&:active": { transform: "scale(0.98)" },
                   }}
                 >
-                  {/* Aspect Ratio Image */}
-                  <Box sx={{ position: "relative", paddingTop: "75%" }}>
+                  <Box sx={{ position: "relative", paddingTop: "75%", overflow: "hidden", borderTopLeftRadius: 12, borderTopRightRadius: 12 }}>
                     <CardMedia
                       component="img"
-                      image={dog.image?.url || "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=800"}
-                      alt={dog.name}
+                      // ✅ CORRECT: Use 'dog' not 'petData'
+                      image={dog.image_url || "https://via.placeholder.com/400x300?text=No+Image"}
+                      alt={dog.name || "Dog breed"}
                       sx={{
-                        position: "absolute", top: 0, left: 0, width: "100%", height: "100%",
-                        objectFit: "cover", borderTopLeftRadius: 12, borderTopRightRadius: 12
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                      onError={(e) => {
+                        e.target.src = "https://via.placeholder.com/400x300?text=Image+Not+Found";
                       }}
                       loading="lazy"
                     />

@@ -177,7 +177,6 @@ export default function Navbar() {
             </Typography>
           </Box>
 
-          {/* CENTER: Desktop Search (hidden on mobile) */}
           <Box sx={{ display: { xs: "none", sm: "block" }, flexGrow: 1, maxWidth: 400, mx: 2 }}>
             <DesktopSearch>
               <SearchIconWrapper lang={lang}>
@@ -282,7 +281,6 @@ export default function Navbar() {
         </Toolbar>
       </AppBar>
 
-      {/* ================== MOBILE SEARCH OVERLAY ================== */}
       <Dialog
         fullScreen
         open={mobileSearchOpen}
@@ -372,7 +370,6 @@ export default function Navbar() {
                     "&:last-child": { borderBottom: "none" },
                   }}
                 >
-                  {/* Pet Thumbnail */}
                   <Box
                     sx={{
                       width: 56,
